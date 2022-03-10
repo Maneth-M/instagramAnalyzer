@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+{% load static %}
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    {#    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">#}
+    {#    <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/Viglino/iconicss@master/dist/iconicss.min.css">#}
+    <link rel="stylesheet" type="text/css" href="{% static 'home/main.css' %}">
+    <link
+            href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css"
+            rel="stylesheet"
+    />
+    <!-- Google Fonts -->
+    <link
+            href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700&display=swap"
+            rel="stylesheet"
+    />
+    <!-- MDB -->
+    <link
+            href="https://cdnjs.cloudflare.com/ajax/libs/mdb-ui-kit/3.10.2/mdb.min.css"
+            rel="stylesheet"
+    />
+    <script
+            type="text/javascript"
+            src="https://cdnjs.cloudflare.com/ajax/libs/mdb-ui-kit/3.10.2/mdb.min.js"
+    ></script>
+    {% block head %}
+        {% if title %}
+            <title>{{ title }}</title>
+        {% else %}
+            <title>Insta Analyze</title>
+        {% endif %}
+    {% endblock head %}
+
+</head>
+<body>
+{% block messages %}
+{% endblock messages %}
+
+<div class="container-fluid " id="main">
+    <div class="row">
+        <div class="col-md-2 col-sm-12 border-end">
+            <div class="d-flex align-items-start flex-column main-menu p-3">
+                <div class="mb-auto p-2 bd-highlight">
+                    <div class="row">
+                        <h2 class="text-center">
+                            LOGO
+                        </h2>
+
+                    </div>
+                    <div class="row row-cols-md-1 row-cols-sm-auto">
+                        <div class="col mx-auto my-3">
+                            <a href="/" class="btn btn-light btn-rounded btn-lg menu-item btn-block hover-shadow" data-mdb-ripple-color="dark">
+                                <i class="fas fa-home"></i><span class="icon-tag">&nbsp;Home</span>
+                            </a>
+                        </div>
+                        <div class="col mx-auto my-3">
+                            <a href="{% url 'searchAcc' %}" class="btn btn-light btn-rounded btn-lg menu-item btn-block hover-shadow" data-mdb-ripple-color="dark">
+                                <i class="fas fa-search"></i><span class="icon-tag">&nbsp;Search Accounts</span>
+                            </a>
+                        </div>
+                        <div class="col mx-auto my-3">
+                            <a href="/" class="btn btn-light btn-rounded btn-lg menu-item btn-block hover-shadow disabled" data-mdb-ripple-color="dark">
+                                <i class="fa-solid fa-hashtag"></i><span class="icon-tag">&nbsp;Search Hashtags</span>
+                            </a>
+                        </div>
+                        <div class="col mx-auto my-3">
+                            <a href="/" class="btn btn-light btn-rounded btn-lg menu-item btn-block hover-shadow disabled" data-mdb-ripple-color="dark">
+                                <i class="fas fa-folder-open"></i><span class="icon-tag">&nbsp;Projects</span>
+                            </a>
+                        </div>
+                        <div class="col mx-auto my-3">
+                            <a href="/" class="btn btn-light btn-rounded btn-lg menu-item btn-block hover-shadow disabled" data-mdb-ripple-color="dark">
+                                <i class="fa fa-chart-line"></i><span class="icon-tag">&nbsp;Analytics</span>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+                <div class="container border-top settings-menu">
+                    <div class="p-2 ps-0 d-flex align-items-end settings-menu">
+                        <div class="row row-cols-auto">
+                            <div class="col mx-auto my-3">
+                                <a href="/" class="btn btn-light btn-rounded btn-lg menu-item btn-block hover-shadow disabled" data-mdb-ripple-color="dark">
+                                    <i class="fa-solid fa-user"></i><span class="icon-tag">&nbsp;{{ request.user.username }}</span>
+                                </a>
+                            </div>
+
+                            <div class="col mx-auto my-3">
+                                <a href="/" class="btn btn-light btn-rounded btn-lg menu-item btn-block hover-shadow disabled" data-mdb-ripple-color="dark">
+                                    <i class="fa fa-gear"></i><span class="icon-tag">&nbsp;Settings</span>
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-10 col-sm-12 p-3">
+            {% block content %}
+            {% endblock content %}
+        </div>
+    </div>
+
+    <div class="setting-menu-sm row row-cols-auto mb-3 fixed-bottom" id="secondary">
+        <div class="col-5 d-flex justify-content-center mx-auto">
+            <a href="/" class="btn btn-light btn-rounded btn-lg menu-item btn-block disabled" data-mdb-ripple-color="dark">
+                <i class="fa-solid fa-user"></i><span class="icon-tag">&nbsp;{{ request.user.username }}</span>
+            </a>
+        </div>
+        <div class="col-5 d-flex justify-content-center mx-auto">
+            <a href="/" class="btn btn-light btn-rounded btn-lg menu-item btn-block disabled" data-mdb-ripple-color="dark">
+                <i class="fa fa-gear"></i><span class="icon-tag">&nbsp;Settings</span>
+            </a>
+        </div>
+    </div>
+{#    <div class="row setting-menu-sm">#}
+{#        <div class="row row-cols-auto">#}
+{#            <div class="col-5 d-flex justify-content-center mx-auto">#}
+{#                <a href="/" class="btn btn-light btn-rounded btn-lg menu-item btn-block" data-mdb-ripple-color="dark">#}
+{#                    <i class="fa-solid fa-user"></i><span class="icon-tag">&nbsp;l</span>#}
+{#                </a>#}
+{#            </div>#}
+{#            <div class="col-5 d-flex justify-content-center mx-auto">#}
+{#                <a href="/" class="btn btn-light btn-rounded btn-lg menu-item btn-block" data-mdb-ripple-color="dark">#}
+{#                    <i class="fa fa-gear"></i><span class="icon-tag">&nbsp;Settings</span>#}
+{#                </a>#}
+{#            </div>#}
+{#        </div>#}
+{#    </div>#}
+</div>
+
+</body>
+</html>

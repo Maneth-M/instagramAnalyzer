@@ -1,0 +1,109 @@
+{% extends "home/base.html" %}
+{% load static %}
+{% load getFirst %}
+{% load humanize %}
+
+
+{% block head %}
+    <link rel="stylesheet" href="{% static 'home/search.css' %}">
+{% endblock %}
+
+
+{% block content %}
+    <div class="container-fluid">
+        <div class="row row-cols-auto my-5">
+            <div class="col mx-auto">
+                <h4 class="text-center text-muted">
+                    Search Instagram Accounts By Username
+                </h4>
+            </div>
+        </div>
+        <div class="row row-cols-auto my-3">
+            <div class="col mx-auto search-input">
+                <form method="get">
+                    <div class="form-outline border rounded">
+                        <input type="text" id="form12" class="form-control" required name="q"/>
+                        <label class="form-label" for="form12">Username</label>
+                    </div>
+                    <div class="d-flex justify-content-center mt-3">
+                        <button type="submit" class="btn btn-primary btn-rounded">Search</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+        {% if data %}
+            <div class="row row-cols-auto">
+                <div class="col mx-auto">
+                    <div class="card hover-shadow border bg-white">
+                        <div class="row row-cols-auto">
+                            <div class="col-md-6 col-sm-12 mx-auto">
+                                <img src="{% static 'accounts/profilePictures/'|add:data.accountId|add:'.png' %}" class="card-img-top m-1" alt="{{ data.username }}"/>
+                                <div class="card-body">
+                                    <div class="text-center">
+                                        <div class="mx-auto ">
+                                            <div class="col-12 mx-auto text-primary text-center">
+                                                <h4>
+                                                    Bio
+                                                </h4>
+                                            </div>
+                                            <div class="col-12 mx-auto">
+                                                <h6 class="text-center text-muted">
+                                                    {{ data.bio }}
+                                                </h6>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-6 col-sm-12 mx-auto my-auto">
+                                <div class="row row-cols-auto">
+                                    <div class="col mx-auto">
+                                        <div class="row text-center text-primary">
+                                            <h4>
+                                                Followers
+                                            </h4>
+                                        </div>
+                                        <div class="row text-center text-muted">
+                                            <h5>
+                                                {{ data.followers|getFirst|intcomma }}
+                                            </h5>
+                                        </div>
+                                        <div class="row text-center text-primary">
+                                            <h4>
+                                                Following
+                                            </h4>
+                                        </div>
+                                        <div class="row text-center text-muted">
+                                            <h5>
+                                                {{ data.following|getFirst|intcomma }}
+                                            </h5>
+                                        </div>
+                                        <div class="row text-center text-primary">
+                                            <h4>
+                                                Medias
+                                            </h4>
+                                        </div>
+                                        <div class="row text-center text-muted">
+                                            <h5>
+                                                {{ data.medias|getFirst|intcomma }}
+                                            </h5>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row row-cols-auto my-auto">
+                                    <div class="col mx-auto">
+                                        <div class="card">
+                                            <div class="card-body">
+                                                Ranking Data goes here
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        {% endif %}
+    </div>
+{% endblock %}

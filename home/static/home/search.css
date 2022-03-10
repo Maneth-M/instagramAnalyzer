@@ -1,0 +1,15 @@
+@media (min-width: 768px) {
+    .search-input {
+        min-width: 25vw;
+    }
+    .card {
+        max-width: 40rem;
+    }
+
+}
+
+@media (max-width: 767px) {
+    .card {
+        max-width: 20rem;
+    }
+}

@@ -1,0 +1,197 @@
+{% extends "home/base.html" %}
+{% load static %}
+{% load getFirst %}
+{% load humanize %}
+
+{% block head %}
+    <link rel="stylesheet" href="{% static 'home/index.css' %}">
+{% endblock head%}
+
+
+{% block content %}
+    <div class="container-fluid">
+        <form method="post">
+            {% csrf_token %}
+            <div class="row row-cols-auto" id="quick-search">
+                <div class="col-md-4 col-sm-12 mx-auto my-1">
+                    <div class="form-outline border ">
+                        <input type="text" id="form12" class="form-control" required name="q"/>
+                        <label class="form-label" for="form12">Username / Text / Image Link</label>
+                    </div>
+                </div>
+                <div class="col-md-4 col-sm-12 mx-auto my-1">
+                    <div class="btn-group shadow-0 border" data-toggle="buttons">
+                        <label class="btn btn-white">
+                            <input type="radio" name="options" id="option1" checked> Username
+                        </label>
+                        <label class="btn btn-white">
+                            <input type="radio" name="options" id="option2" disabled> Text
+                        </label>
+                        <label class="btn btn-white">
+                            <input type="radio" name="options" id="option3" disabled> Image
+                        </label>
+                    </div>
+                </div>
+                <div class="col-md-4 col-sm-12 mx-auto my-1">
+                    <button type="submit" class="btn btn-outline-primary" data-mdb-ripple-color="dark">Search</button>
+                </div>
+            </div>
+        </form>
+        <div class="row mt-2">
+            <div class="col-md-4 mx-auto summery">
+                <div class="card hover-shadow">
+                    <div class="card-body">
+                        <div class="card ps-3 border-start border-info border-4 rounded">
+                            <h5 class="text-primary">
+                                Your Projects
+                            </h5>
+                            <p>
+                                {{ request.user.owner.all.count }} Projects
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4 mx-auto summery">
+                <div class="card">
+                    <div class="card-body hover-shadow">
+                        <div class="card ps-3 border-start border-success border-4 rounded">
+                            <h5 class="text-primary">
+                                Guest Projects
+                            </h5>
+                            <p>
+                                {{ request.user.guests.all.count }} Projects
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4 mx-auto summery">
+                <div class="card">
+                    <div class="card-body hover-shadow">
+                        <div class="card ps-3 border-start border-warning border-4 rounded">
+                            <h5 class="text-primary">
+                                Tracking Accounts
+                            </h5>
+                            <p>
+                                {{ accounts|length }}
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row border-top mt-3">
+            <div class="col-md-6 mt-3 border-end">
+                <div class="row row-cols-auto">
+                    {% for project in request.user.owner.all.reverse %}
+                        <div class="col mx-auto">
+                            <div class="card hover-shadow border">
+                                <div class="card-header">
+                                    <h4 class="text-center">
+                                        {{ project.projectName }}
+                                    </h4>
+                                </div>
+                                <div class="card-body">
+                                    <div class="row row-cols-auto">
+                                        <div class="col mx-auto">
+                                            <div class="row">
+                                                <h5 class="text-capitalize text-center">
+                                                    Accounts Left
+                                                </h5>
+                                            </div>
+                                            <div class="row">
+                                                <h6 class="text-center text-muted">
+                                                    {{ project.projectSize }}
+                                                </h6>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    {% endfor %}
+                </div>
+            </div>
+            <div class="col-md-6 mt-3 overflow-scroll">
+                {% for account in accounts %}
+                    <div class="row row-cols-auto d-flex align-items-center my-1 border p-1 hover-shadow">
+                        <div class="col-2 mx-auto account-list-image d-flex justify-content-center">
+                            <img src="{% static 'accounts/profilePictures/'|add:account.accountId|add:'.png' %}" class="account-list-image border" alt="{{ data.username }}"/>
+                        </div>
+                        <div class="col-2 mx-auto">
+                            <div class="row row-cols-auto">
+                                <div class="col-12 mx-auto">
+                                    <h6 class="text-center">
+                                        Followers
+                                    </h6>
+                                </div>
+                                <div class="col-12 mx-auto">
+                                    <p class="text-center">
+                                        {{ account.followers|getFirst|intcomma }}
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-2 mx-auto">
+                            <div class="row row-cols-auto">
+                                <div class="col-12 mx-auto">
+                                    <h6 class="text-center">
+                                        Following
+                                    </h6>
+                                </div>
+                                <div class="col-12 mx-auto">
+                                    <p class="text-center">
+                                        {{ account.following|getFirst|intcomma }}
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-2 mx-auto">
+                            <div class="row row-cols-auto">
+                                <div class="col-12 mx-auto">
+                                    <h6 class="text-center">
+                                        Medias
+                                    </h6>
+                                </div>
+                                <div class="col-12 mx-auto">
+                                    <p class="text-center">
+                                        {{ account.medias|getFirst|intcomma }}
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-2 mx-auto">
+                            <div class="row row-cols-auto">
+                                <div class="col-12 mx-auto">
+                                    <h6 class="text-center">
+                                        Rank
+                                    </h6>
+                                </div>
+                                <div class="col-12 mx-auto">
+                                    <p class="text-center">
+                                        `RANK`
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-2 mx-auto">
+                            <div class="row row-cols-auto">
+                                <div class="col-12 mx-auto">
+                                    <h6 class="text-center">
+                                        Engage
+                                    </h6>
+                                </div>
+                                <div class="col-12 mx-auto">
+                                    <p class="text-center">
+                                        `ENGAGE`
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                {% endfor %}
+            </div>
+        </div>
+    </div>
+{% endblock content %}

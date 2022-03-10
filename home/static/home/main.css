@@ -1,0 +1,55 @@
+body {
+    background: rgba(241, 237, 237, 0.8);
+}
+
+
+.settings-menu {
+    padding-left: 0;
+}
+
+
+@media (max-width:1012px) {
+
+    .icon-tag {
+        display: none;
+    }
+}
+
+@media (max-width: 767px) {
+    .settings-menu {
+        display: none;
+        border-top: none;
+    }
+
+
+}
+
+@media (min-width: 768px) {
+    .main-menu {
+        height: 97vh;
+    }
+    #secondary {
+        display: none;
+    }
+}
+
+@media (min-width: 1012px) {
+    .menu-item {
+        min-width: 150px;
+    }
+
+
+    .settings-menu {
+        min-width: 150px;
+        padding-left: 0;
+    }
+
+    .setting-items {
+        max-width: 16%;
+    }
+}
+
+#main {
+    height: 100vh;
+}
+
