@@ -14,8 +14,7 @@
                 <div class="col" id="card-scroll">
                     <div class="card card-block border hover-shadow">
                         <h5 class="card-header text-center text-primary">
-                            {{ project.projectName }}
-                            {{ project.projectOwner }}
+                            {{ project.projectName }} - {{ project.projectOwner }}
                         </h5>
                         <p class="text-center text-muted">
                             {{ project.projectSize }} Accounts Left
@@ -83,6 +82,11 @@
                                         </div>
                                     </div>
                                 </div>
+                                <div class="col mx-auto">
+                                    <a class="btn btn-danger" href="{% url 'projects' %}?project={{ project }}&remove={{ account.accountId }}">
+                                        Remove {{ account }}
+                                    </a>
+                                </div>
                             </div>
                         </div>
                     {% endfor %}
@@ -116,7 +120,7 @@
                         </div>
                     </div>
 
-                    <div class="col-12 mx-auto mt-5 border-bottom">
+                    <div class="col-12 mx-auto mt-5 border-bottom overflow-auto">
                         <div class="row text-muted mb-2">
                             <h5 class="text-center">
                                 Shared With

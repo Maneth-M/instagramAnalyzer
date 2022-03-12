@@ -90,6 +90,7 @@
                                 <div class="card-header">
                                     <h4 class="text-center">
                                         {{ project.projectName }}
+                                        <a href="{% url 'projects' %}?project={{ project }}" class="stretched-link hidden"></a>
                                     </h4>
                                 </div>
                                 <div class="card-body">

@@ -10,7 +10,7 @@
 
 
 {% block content %}
-    <div class="container-fluid">
+    <div class="container-fluid mb-5">
         <div class="row row-cols-auto my-5">
             <div class="col mx-auto">
                 <h4 class="text-center text-muted">
@@ -98,6 +98,28 @@
                                             </div>
                                         </div>
                                     </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row row-cols-auto">
+                            <div class="col mx-auto">
+                                <div class="dropdown">
+                                    <a
+                                            class="btn btn-primary dropdown-toggle"
+                                            href="#"
+                                            role="button"
+                                            id="dropdownMenuLink"
+                                            data-mdb-toggle="dropdown"
+                                            aria-expanded="false"
+                                    >
+                                        Add Account to
+                                    </a>
+
+                                    <ul class="dropdown-menu" aria-labelledby="dropdownMenuLink">
+                                        {% for project in request.user.owner.all %}
+                                            <li><a class="dropdown-item" href="{% url 'projects' %}?project={{ project }}&add={{ data.accountId }}">{{ project.projectName }}</a></li>
+                                        {% endfor %}
+                                    </ul>
                                 </div>
                             </div>
                         </div>
