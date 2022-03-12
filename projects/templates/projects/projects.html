@@ -30,10 +30,51 @@
                 {{ project.projectName }}
             </h3>
         </div>
+
+        <div class="row row-cols-auto mx-auto my-2">
+            <div class="col mx-auto mb-3">
+                <div class="dropdown">
+                    <button
+                            class="btn btn-outline-info btn-rounded dropdown-toggle"
+                            type="button"
+                            id="dropdownMenuButton"
+                            data-mdb-toggle="dropdown"
+                            aria-expanded="false"
+                    >
+                        Sort By
+                    </button>
+                    <ul class="dropdown-menu dropdown-menu-dark" aria-labelledby="dropdownMenuButton">
+                        <li>
+                            <a class="dropdown-item" href="{% url 'projects' %}?project={{ project }}&sort=V">
+                                Views
+                            </a>
+                        </li>
+
+                        <li>
+                            <a class="dropdown-item" href="{% url 'projects' %}?project={{ project }}&sort=L">
+                                Likes
+                            </a>
+                        </li>
+
+                        <li>
+                            <a class="dropdown-item" href="{% url 'projects' %}?project={{ project }}&sort=C">
+                                Comments
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="col mx-auto">
+                <a href="#" class="btn btn-outline-info btn-rounded">
+                    Analyze Media
+                </a>
+            </div>
+        </div>
         <div class="row mt-5">
             <div class="col-md-10 col-sm-12 mx-auto border-end">
                 <div class="row row-cols-auto overflow-auto mb-3">
-                    {% for account in project.projectAccounts.all %}
+                    {% for account in accounts %}
                         <div class="col mx-auto my-1">
                             <div class="card account-card hover-shadow border">
                                 <img src="{% static 'accounts/profilePictures/'|add:account.accountId|add:'.png' %}" class="card-img-top" alt="{{ account.username }}"/>
@@ -94,6 +135,7 @@
             </div>
             <div class="col-md-2 col-sm-12 mx-auto mb-5 mt-2">
                 <div class="row row-cols-auto">
+
                     <div class="col-12 mx-auto border-bottom">
                         <div class="row text-muted">
                             <h5 class="text-center">

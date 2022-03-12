@@ -6,6 +6,7 @@ def projects(request):
     project = request.GET.get("project", "")
     add = request.GET.get("add", "")
     remove = request.GET.get("remove", "")
+    sort = request.GET.get('sort', "")
 
     if project:
         project = Project.objects.filter(projectId=project).first()
@@ -27,10 +28,18 @@ def projects(request):
         project.projectAccounts.remove(acc)
         project.save()
         messages.success(request, f"{acc.username} Removed")
+        
+    accounts = project.projectAccounts.all().order_by("-avLikes").all()
+    if sort == "V":
+        accounts = project.projectAccounts.all().order_by("-avViews").all()
+    if sort == "C":
+        accounts = project.projectAccounts.all().order_by("-avComments").all()
+
     return render(
         request,
         "projects/projects.html",
         {
-            "project": project
+            "project": project,
+            "accounts": accounts
         }
     )

@@ -4,8 +4,8 @@ from accounts.models import Account
 from django.contrib import messages
 import requests, datetime
 from projects.models import Project
-cl = Client()
-cl.login('butterbunny23', '123AgunamD')
+# cl = Client()
+# cl.login('butterbunny23', '123AgunamD')
 
 
 def index(request):
@@ -61,6 +61,7 @@ def searchAcc(request):
                 messages.error(request, "Something went wrong. Please Try again")
                 return render(request, "home/search.html")
         data = Account.objects.filter(username=key.lower()).first()
+
     return render(
         request,
         "home/search.html",
