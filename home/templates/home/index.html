@@ -82,10 +82,10 @@
             </div>
         </div>
         <div class="row border-top mt-3">
-            <div class="col-md-6 mt-3 border-end">
+            <div class="col-md-6 mt-3 overflow-auto" id="down-content">
                 <div class="row row-cols-auto">
-                    {% for project in request.user.owner.all.reverse %}
-                        <div class="col mx-auto">
+                    {% for project in request.user.owner.all.reverse|slice:":6" %}
+                        <div class="col mx-auto my-1 overflow-auto">
                             <div class="card hover-shadow border">
                                 <div class="card-header">
                                     <h4 class="text-center">
@@ -113,13 +113,13 @@
                     {% endfor %}
                 </div>
             </div>
-            <div class="col-md-6 mt-3 overflow-scroll">
+            <div class="col-md-6 mt-3 overflow-auto mb-5">
                 {% for account in accounts %}
-                    <div class="row row-cols-auto d-flex align-items-center my-1 border p-1 hover-shadow">
-                        <div class="col-2 mx-auto account-list-image d-flex justify-content-center">
+                    <div class="row row-cols-auto d-flex align-items-center my-1 border p-1 hover-shadow account">
+                        <div class="col-3 mx-auto account-list-image d-flex justify-content-center">
                             <img src="{% static 'accounts/profilePictures/'|add:account.accountId|add:'.png' %}" class="account-list-image border" alt="{{ data.username }}"/>
                         </div>
-                        <div class="col-2 mx-auto">
+                        <div class="col-3 mx-auto">
                             <div class="row row-cols-auto">
                                 <div class="col-12 mx-auto">
                                     <h6 class="text-center">
@@ -133,7 +133,7 @@
                                 </div>
                             </div>
                         </div>
-                        <div class="col-2 mx-auto">
+                        <div class="col-3 mx-auto">
                             <div class="row row-cols-auto">
                                 <div class="col-12 mx-auto">
                                     <h6 class="text-center">
@@ -147,44 +147,16 @@
                                 </div>
                             </div>
                         </div>
-                        <div class="col-2 mx-auto">
+                        <div class="col-3 mx-auto">
                             <div class="row row-cols-auto">
                                 <div class="col-12 mx-auto">
                                     <h6 class="text-center">
-                                        Medias
+                                        Media
                                     </h6>
                                 </div>
                                 <div class="col-12 mx-auto">
                                     <p class="text-center">
                                         {{ account.medias|getFirst|intcomma }}
-                                    </p>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-2 mx-auto">
-                            <div class="row row-cols-auto">
-                                <div class="col-12 mx-auto">
-                                    <h6 class="text-center">
-                                        Rank
-                                    </h6>
-                                </div>
-                                <div class="col-12 mx-auto">
-                                    <p class="text-center">
-                                        `RANK`
-                                    </p>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-2 mx-auto">
-                            <div class="row row-cols-auto">
-                                <div class="col-12 mx-auto">
-                                    <h6 class="text-center">
-                                        Engage
-                                    </h6>
-                                </div>
-                                <div class="col-12 mx-auto">
-                                    <p class="text-center">
-                                        `ENGAGE`
                                     </p>
                                 </div>
                             </div>

@@ -13,3 +13,20 @@
 .account-list{
     max-height: 150px;
 }
+
+#down-content {
+    max-height: 50vh;
+}
+
+@media (max-width: 767px) {
+    .account-list-image {
+        max-height:50px;
+    }
+
+    #down-content {
+        max-height: 25vh;
+        border-top: 1px solid gray;
+        border-bottom: 1px solid gray;
+    }
+
+}
