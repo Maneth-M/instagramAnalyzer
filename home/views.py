@@ -4,8 +4,8 @@ from accounts.models import Account
 from django.contrib import messages
 import requests, datetime
 from projects.models import Project
-# cl = Client()
-# cl.login('butterbunny23', '123AgunamD')
+cl = Client()
+cl.login('butterbunny23', '123AgunamD')
 
 
 def index(request):
