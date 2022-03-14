@@ -66,11 +66,13 @@
             </div>
 
             <div class="col mx-auto">
-                <a href="#" class="btn btn-outline-info btn-rounded">
+                <a href="{% url 'media' %}?project={{ project }}" class="btn btn-outline-info btn-rounded">
                     Analyze Media
                 </a>
             </div>
         </div>
+        <input type="date">
+
         <div class="row mt-5">
             <div class="col-md-10 col-sm-12 mx-auto border-end">
                 <div class="row row-cols-auto overflow-auto mb-3">

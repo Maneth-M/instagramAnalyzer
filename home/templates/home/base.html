@@ -72,7 +72,7 @@
                             </a>
                         </div>
                         <div class="col mx-auto my-3">
-                            <a href="{% url 'projects' %}" class="btn btn-light btn-rounded btn-lg menu-item btn-block hover-shadow" data-mdb-ripple-color="dark">
+                            <a href="{% url 'projects' %}?project={{ request.user.owner.first }}" class="btn btn-light btn-rounded btn-lg menu-item btn-block hover-shadow" data-mdb-ripple-color="dark">
                                 <i class="fas fa-folder-open"></i><span class="icon-tag">&nbsp;Projects</span>
                             </a>
                         </div>
