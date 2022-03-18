@@ -1,0 +1,63 @@
+{% extends "home/base.html" %}
+{% load static %}
+
+{% block head %}
+{% endblock head %}
+
+{% block content %}
+    <div class="container-fluid mb-5">
+        <div class="row row-cols-auto">
+            <div class="col mx-auto">
+                <div class="row row-cols-auto my-5">
+                    <div class="col mx-auto">
+                        <h4 class="text-center text-muted">
+                            Search Hashtags for Text
+                        </h4>
+                    </div>
+                </div>
+                <div class="row row-cols-auto my-3">
+                    <div class="col mx-auto search-input">
+                        <form method="get">
+                            <div class="form-outline border rounded">
+                                <input type="text" id="form12" class="form-control" required name="text"/>
+                                <label class="form-label" for="form12">Text</label>
+                            </div>
+                            <div class="d-flex justify-content-center mt-3">
+                                <button type="submit" class="btn btn-primary btn-rounded">Search</button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+
+
+            <div class="col mx-auto">
+                <div class="row row-cols-auto my-5">
+                    <div class="col mx-auto">
+                        <h4 class="text-center text-muted">
+                            Search Hashtags for an Image
+                        </h4>
+                    </div>
+                </div>
+                <div class="row row-cols-auto my-3">
+                    <div class="col mx-auto search-input">
+                        <form method="get">
+                            <div class="form-outline border rounded">
+                                <input type="file" id="form12" class="form-control" required name="img"/>
+                                <label class="form-label" for="form12"></label>
+                            </div>
+                            <div class="d-flex justify-content-center mt-3">
+                                <button type="submit" class="btn btn-primary btn-rounded disabled ">Search</button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            {% for tag in tags %}
+                {{ tag }}
+            {% endfor %}
+        </div>
+    </div>
+{% endblock content %}

@@ -69,3 +69,24 @@ def searchAcc(request):
             "data": data
         }
     )
+
+
+def hashtags(request):
+    txt = request.GET.get("text", "")
+    tags = []
+    hard = []
+    medium = []
+    low = []
+    if txt:
+        txt = txt.split(" ")
+        for tag in txt:
+            print(tag)
+            print(requests.get(f"https://www.instagram.com/explore/tags/{tag}/?__a=1").json())
+    print(tags)
+    return render(
+        request,
+        "home/hashtags.html",
+        {
+            "tags": tags
+        }
+    )
