@@ -1,11 +1,13 @@
-from django.shortcuts import render, redirect
+from django.shortcuts import render, redirect, HttpResponse
 from instagrapi import Client
 from accounts.models import Account
 from django.contrib import messages
 import requests, datetime
+from urllib.parse import quote
 from projects.models import Project
-# cl = Client()
-# cl.login('butterbunny23', '123AgunamD')
+cl = Client()
+cl.login('butterbunny23', '123AgunamD')
+
 
 
 def index(request):
@@ -31,6 +33,8 @@ def index(request):
 
 # Quick Search Function
 def searchAcc(request):
+    request.META["Cross-Origin-Resource-Policy"] = "same-site"
+    print(request.META)
     data = None
     if request.method == "GET":
         key = request.GET.get("q", "")
@@ -42,15 +46,13 @@ def searchAcc(request):
                     messages.warning(request, "Sorry! We Can only Analyze Public Accounts")
                     return render(request, "home/search.html")
                 else:
-                    imgResponse = requests.get(result['profile_pic_url_hd'])
-                    with open(f"accounts/static/accounts/profilePictures/{result['pk']}.png", 'wb') as f:
-                        f.write(imgResponse.content)
                     followers = {"today":result['follower_count']}
                     following = {"today":result['following_count']}
                     posts = {"today":result['media_count']}
                     Account(
                         accountId=result['pk'],
                         username=result['username'],
+                        profilePic=quote(result['profile_pic_url_hd']),
                         followers={f"{datetime.datetime.today()}": result['follower_count']},
                         following={f"{datetime.datetime.today()}": result['following_count']},
                         medias={f"{datetime.datetime.today()}": result['media_count']},

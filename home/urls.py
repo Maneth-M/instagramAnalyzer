@@ -5,5 +5,5 @@ from . import views
 urlpatterns = [
     path("", views.index, name="index"),
     path("search-acc/", views.searchAcc, name="searchAcc"),
-    path("hashtags/", views.hashtags, name="hashtags")
+    path("hashtags/", views.hashtags, name="hashtags"),
 ]

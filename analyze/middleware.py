@@ -6,6 +6,6 @@ class MyMiddleware:
     def __call__(self, request):
         response = self.get_response(request)
         response["cross-origin-resource-policy"] = "cross-origin"
-        response["hello"] = "hi"
+        response["Cross-Origin-Opener-Policy"] = "cross-origin"
         return response
 

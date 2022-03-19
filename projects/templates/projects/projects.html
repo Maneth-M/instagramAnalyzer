@@ -71,15 +71,13 @@
                 </a>
             </div>
         </div>
-        <input type="date">
-
         <div class="row mt-5">
             <div class="col-md-10 col-sm-12 mx-auto border-end">
                 <div class="row row-cols-auto overflow-auto mb-3">
                     {% for account in accounts %}
                         <div class="col mx-auto my-1">
                             <div class="card account-card hover-shadow border">
-                                <img src="{% static 'accounts/profilePictures/'|add:account.accountId|add:'.png' %}" class="card-img-top" alt="{{ account.username }}"/>
+                                <img src="http://localhost:3000/proxy?url={{ account.profilePic }}" class="card-img-top" alt="{{ account.username }}"/>
                                 <div class="card-header">
                                     <h5 class="card-title text-center">
                                         {{ account }}

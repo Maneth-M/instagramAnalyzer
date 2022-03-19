@@ -1,0 +1,196 @@
+{% extends "home/base.html" %}
+{% load static %}
+{% load getFirst %}
+{% load humanize %}
+
+{% block head %}
+    <link rel="stylesheet" href="{% static 'analyze/analyze.css' %}">
+    <link
+            rel="stylesheet"
+            href="https://unpkg.com/swiper/swiper-bundle.min.css"
+    />
+    <style>
+        html,
+        body {
+            position: relative;
+            height: 100%;
+        }
+
+        body {
+            background: #eee;
+            font-family: Helvetica Neue, Helvetica, Arial, sans-serif;
+            font-size: 14px;
+            color: #000;
+            margin: 0;
+            padding: 0;
+        }
+
+        .swiper {
+            width: 100%;
+            height: 100%;
+        }
+
+        .swiper-slide {
+            text-align: center;
+            font-size: 18px;
+            background: #fff;
+
+            /* Center slide text vertically */
+            display: -webkit-box;
+            display: -ms-flexbox;
+            display: -webkit-flex;
+            display: flex;
+            -webkit-box-pack: center;
+            -ms-flex-pack: center;
+            -webkit-justify-content: center;
+            justify-content: center;
+            -webkit-box-align: center;
+            -ms-flex-align: center;
+            -webkit-align-items: center;
+            align-items: center;
+        }
+
+        .swiper-slide img {
+            display: block;
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+    </style>
+{% endblock %}
+
+{% block content %}
+    <div class="container-fluid" id="main">
+        <div class="row row-cols-auto">
+            <div class="col mx-auto">
+                <h3 class="text-center text-primary">
+                    {{ project.projectName }}
+                </h3>
+            </div>
+            <div class="col mx-auto">
+                <div class="dropdown">
+                    <button
+                            class="btn btn-outline-info btn-rounded dropdown-toggle"
+                            type="button"
+                            id="dropdownMenuButton"
+                            data-mdb-toggle="dropdown"
+                            aria-expanded="false"
+                    >
+                        Sort By
+                    </button>
+                    <ul class="dropdown-menu dropdown-menu-dark" aria-labelledby="dropdownMenuButton">
+                        <li>
+                            <a class="dropdown-item" href="{% url 'media' %}?project={{ project }}&sort=V">
+                                Views
+                            </a>
+                        </li>
+
+                        <li>
+                            <a class="dropdown-item" href="{% url 'media' %}?project={{ project }}&sort=L">
+                                Likes
+                            </a>
+                        </li>
+
+                        <li>
+                            <a class="dropdown-item" href="{% url 'media' %}?project={{ project }}&sort=C">
+                                Comments
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+        <div class="row row-cols-1">
+            {% for media in medias %}
+                <div class="col mx-auto">
+                    <div class="card border hover-shadow my-2">
+                        <div class="row">
+                            <div class="col-3 border-end d-flex justify-content-center">
+                                {% if media.type == 'photo' %}
+                                    <div class="media-content-container m-1 d-flex align-items-center">
+                                        <img class="media-content" src="http://localhost:3000/proxy?url={{ media.source }}" alt="{{ media.account }}">
+                                    </div>
+                                {% elif media.type == 'video' %}
+                                    <div class="media-content-container p-1">
+                                        <video class="media-content" src="http://localhost:3000/proxy?url={{ media.source }}"></video>
+                                    </div>
+                                {% elif media.type == 'album' %}
+                                    <div class="swiper mySwiper ">
+                                        <div class="swiper-wrapper">
+                                            {% for key, value in media.resources.items %}
+                                                <div class="swiper-slide">
+                                                    <img src="http://localhost:3000/proxy?url={{ value.source }}" alt="">
+                                                </div>
+                                            {% endfor %}
+                                        </div>
+                                        <div class="swiper-button-next"></div>
+                                        <div class="swiper-button-prev"></div>
+                                        <div class="swiper-pagination"></div>
+                                    </div>
+                                {% endif %}
+                            </div>
+                            <div class="col-9">
+                                <div class="row text-center text-capitalize mt-1">
+                                    <h4>
+                                        {{ media.account }}
+                                    </h4>
+                                </div>
+                                <div class="row row-cols-auto">
+                                    <div class="col mx-auto">
+                                        <div class="row h5 text-center text-muted">
+                                            Type
+                                        </div>
+                                        <div class="row h4 text-center text-primary">
+                                            {{ media.type }}
+                                        </div>
+                                    </div>
+                                    <div class="col mx-auto">
+                                        <div class="row h5 text-center text-muted">
+                                            Likes
+                                        </div>
+                                        <div class="row h4 text-center text-primary">
+                                            {{ media.likes|getFirst|intcomma }}
+                                        </div>
+                                    </div>
+                                    <div class="col mx-auto">
+                                        <div class="row h5 text-center text-muted">
+                                            Comments
+                                        </div>
+                                        <div class="row h4 text-center text-primary">
+                                            {{ media.comments|getFirst|intcomma }}
+                                        </div>
+                                    </div>
+                                    {% if media.type == 'video' %}
+                                        <div class="col mx-auto">
+                                            <div class="row h5 text-center text-muted">
+                                                Views
+                                            </div>
+                                            <div class="row h4 text-center text-primary">
+                                                {{ media.views|getFirst|intcomma }}
+                                            </div>
+                                        </div>
+                                    {% endif %}
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            {% endfor %}
+        </div>
+    </div>
+    <script src="https://unpkg.com/swiper/swiper-bundle.min.js"></script>
+
+    <!-- Initialize Swiper -->
+    <script>
+        var swiper = new Swiper(".mySwiper", {
+            pagination: {
+                el: ".swiper-pagination",
+                type: "progressbar",
+            },
+            navigation: {
+                nextEl: ".swiper-button-next",
+                prevEl: ".swiper-button-prev",
+            },
+        });
+    </script>
+{% endblock content %}

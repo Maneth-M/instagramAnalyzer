@@ -118,7 +118,7 @@
                 {% for account in accounts %}
                     <div class="row row-cols-auto d-flex align-items-center my-1 border p-1 hover-shadow account">
                         <div class="col-3 mx-auto account-list-image d-flex justify-content-center">
-                            <img src="{% static 'accounts/profilePictures/'|add:account.accountId|add:'.png' %}" class="account-list-image border" alt="{{ data.username }}"/>
+                            <img src="http://localhost:3000/proxy?url={{ account.profilePic }}" class="account-list-image border" alt="{{ data.username }}"/>
                         </div>
                         <div class="col-3 mx-auto">
                             <div class="row row-cols-auto">
