@@ -34,7 +34,6 @@ def index(request):
 # Quick Search Function
 def searchAcc(request):
     request.META["Cross-Origin-Resource-Policy"] = "same-site"
-    print(request.META)
     data = None
     if request.method == "GET":
         key = request.GET.get("q", "")

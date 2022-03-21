@@ -2,7 +2,7 @@ from django.shortcuts import render
 from projects.models import Project
 from accounts.models import Media
 from home.views import cl
-from datetime import datetime
+from datetime import datetime, timedelta
 from urllib.parse import quote
 from django.db.models import Max
 
@@ -11,6 +11,7 @@ from django.db.models import Max
 def media (request):
     project = request.GET.get('project', "")
     sort = request.GET.get("sort", "")
+    mDate = request.GET.get("date", "")
     if project:
         project = Project.objects.filter(projectId=project).first()
         accounts = project.projectAccounts.all()
@@ -74,11 +75,28 @@ def media (request):
             medias = Media.objects.filter(account__in=accounts).all().annotate(Max("rComments")).order_by('-rComments__max')
         else:
             medias = Media.objects.filter(account__in=accounts).all().annotate(Max("rViews")).order_by('-rViews__max')
+
+        tod = datetime.now()
+        d = timedelta(days = 45)
+        a = tod - d
+        a = a.strftime("%Y-%m-%d")
+
+
+        minDate = {
+            'min': a,
+            'max': datetime.now().strftime("%Y-%m-%d")
+        }
+
+        if mDate:
+            medias = medias.filter(datePosted__range=[mDate, datetime.now().strftime("%Y-%m-%d")])
+
         return render(
             request,
             "analyze/analyze.html",
             {
                 'medias': medias,
-                'project': project
+                'project': project,
+                'dates': minDate,
+                'sort': sort
             }
         )

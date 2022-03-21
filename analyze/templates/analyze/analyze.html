@@ -2,6 +2,8 @@
 {% load static %}
 {% load getFirst %}
 {% load humanize %}
+{% load getUrl %}
+
 
 {% block head %}
     <link rel="stylesheet" href="{% static 'analyze/analyze.css' %}">
@@ -60,7 +62,7 @@
 {% endblock %}
 
 {% block content %}
-    <div class="container-fluid" id="main">
+    <div class="container-fluid overflow-auto" id="main">
         <div class="row row-cols-auto">
             <div class="col mx-auto">
                 <h3 class="text-center text-primary">
@@ -99,6 +101,18 @@
                     </ul>
                 </div>
             </div>
+            <div class="col mx-auto">
+                <form method="get">
+                    <div class="btn-group" label="Min Date">
+                        <input type="text" name="project" value="{{ project }}" hidden>
+                        <input type="text" name="sort" value="{{ sort }}" hidden>
+                        <input name="date" type="date" id="datepicker-dep" class="form-control" min="{{ dates.min }}" max="{{ dates.max }}">
+                        <button type="submit" class="btn btn-outline-info">
+                            Filter
+                        </button>
+                    </div>
+                </form>
+            </div>
         </div>
         <div class="row row-cols-1">
             {% for media in medias %}
@@ -130,12 +144,17 @@
                                 {% endif %}
                             </div>
                             <div class="col-9">
-                                <div class="row text-center text-capitalize mt-1">
-                                    <h4>
+                                <div class="row text-center text-capitalize border-bottom mt-1">
+                                    <h3>
                                         {{ media.account }}
-                                    </h4>
+                                    </h3>
                                 </div>
-                                <div class="row row-cols-auto">
+                                <div class="row text-center text-muted mt-1">
+                                    <h6>
+                                        Media Statics
+                                    </h6>
+                                </div>
+                                <div class="row row-cols-auto border-bottom">
                                     <div class="col mx-auto">
                                         <div class="row h5 text-center text-muted">
                                             Type
@@ -171,6 +190,13 @@
                                         </div>
                                     {% endif %}
                                 </div>
+                                <div class="row row-cols-auto text-center text-muted mt-5">
+                                    <div class="col mx-auto mb-2">
+                                        <a class="btn btn-outline-dark" data-mdb-ripple-color="dark">
+                                            See More
+                                        </a>
+                                    </div>
+                                </div>
                             </div>
                         </div>
                     </div>
@@ -191,6 +217,12 @@
                 nextEl: ".swiper-button-next",
                 prevEl: ".swiper-button-prev",
             },
+        });
+    </script>
+
+    <script>
+        $('#datepicker-dep').datepicker({
+            minDate: 0
         });
     </script>
 {% endblock content %}

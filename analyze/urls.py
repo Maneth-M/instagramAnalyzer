@@ -3,5 +3,5 @@ from . import views
 
 
 urlpatterns = [
-    path("/", views.media, name="media"),
+    path("", views.media, name="media"),
 ]
