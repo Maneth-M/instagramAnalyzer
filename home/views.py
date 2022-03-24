@@ -45,16 +45,21 @@ def searchAcc(request):
                     messages.warning(request, "Sorry! We Can only Analyze Public Accounts")
                     return render(request, "home/search.html")
                 else:
-                    followers = {"today":result['follower_count']}
-                    following = {"today":result['following_count']}
-                    posts = {"today":result['media_count']}
+                    analyze = {
+                        f"{datetime.datetime.now()}": {
+                            'followers':result['follower_count'],
+                            'following':result['following_count'],
+                            'medias':result['media_count']
+                        }
+                    }
                     Account(
                         accountId=result['pk'],
                         username=result['username'],
                         profilePic=quote(result['profile_pic_url_hd']),
-                        followers={f"{datetime.datetime.today()}": result['follower_count']},
-                        following={f"{datetime.datetime.today()}": result['following_count']},
-                        medias={f"{datetime.datetime.today()}": result['media_count']},
+                        followers=result['follower_count'],
+                        following=result['following_count'],
+                        medias=result['media_count'],
+                        analyze=analyze,
                         isVerified=result['is_verified'],
                         bio=result['biography']
                     ).save()

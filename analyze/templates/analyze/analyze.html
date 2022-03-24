@@ -106,7 +106,8 @@
                     <div class="btn-group" label="Min Date">
                         <input type="text" name="project" value="{{ project }}" hidden>
                         <input type="text" name="sort" value="{{ sort }}" hidden>
-                        <input name="date" type="date" id="datepicker-dep" class="form-control" min="{{ dates.min }}" max="{{ dates.max }}">
+                        <input required name="minDate" type="date" id="datepicker-min" class="form-control" min="{{ dates.min }}" max="{{ dates.max }}">
+                        <input required name="maxDate" type="date" id="datepicker-max" class="form-control" min="{{ dates.min }}" max="{{ dates.max }}">
                         <button type="submit" class="btn btn-outline-info">
                             Filter
                         </button>
@@ -125,7 +126,7 @@
                                         <img class="media-content" src="http://143.198.116.198:4000/{{ media.source }}" alt="{{ media.account }}">
                                     </div>
                                 {% elif media.type == 'video' %}
-                                    <div class="media-content-container d-flex justify-content-center p-1">
+                                    <div class="media-content-container d-flex justify-content-center p-1 align-items-center">
                                         <video controls class="media-content" src="http://143.198.116.198:5000/{{ media.source }}"></video>
                                     </div>
                                 {% elif media.type == 'album' %}
@@ -168,7 +169,7 @@
                                             Likes
                                         </div>
                                         <div class="row h4 text-center text-primary">
-                                            {{ media.likes|getFirst|intcomma }}
+                                            {{ media.likes|intcomma }}
                                         </div>
                                     </div>
                                     <div class="col mx-auto">
@@ -176,7 +177,7 @@
                                             Comments
                                         </div>
                                         <div class="row h4 text-center text-primary">
-                                            {{ media.comments|getFirst|intcomma }}
+                                            {{ media.comments|intcomma }}
                                         </div>
                                     </div>
                                     {% if media.type == 'video' %}
@@ -185,7 +186,7 @@
                                                 Views
                                             </div>
                                             <div class="row h4 text-center text-primary">
-                                                {{ media.views|getFirst|intcomma }}
+                                                {{ media.views|intcomma }}
                                             </div>
                                         </div>
                                     {% endif %}

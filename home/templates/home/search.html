@@ -37,7 +37,7 @@
                     <div class="card hover-shadow border bg-white">
                         <div class="row row-cols-auto">
                             <div class="col-md-6 col-sm-12 mx-auto">
-                                <img src="http://localhost:3000/proxy?url={{ data.profilePic }}" alt="{{ data.username }}">
+                                <img src="http://143.198.116.198:4000/{{ data.profilePic }}" alt="{{ data.username }}">
                                 <div class="card-body">
                                     <div class="text-center">
                                         <div class="mx-auto ">
@@ -65,7 +65,7 @@
                                         </div>
                                         <div class="row text-center text-muted">
                                             <h5>
-                                                {{ data.followers|getFirst|intcomma }}
+                                                {{ data.followers|intcomma }}
                                             </h5>
                                         </div>
                                         <div class="row text-center text-primary">
@@ -75,7 +75,7 @@
                                         </div>
                                         <div class="row text-center text-muted">
                                             <h5>
-                                                {{ data.following|getFirst|intcomma }}
+                                                {{ data.following|intcomma }}
                                             </h5>
                                         </div>
                                         <div class="row text-center text-primary">
@@ -85,7 +85,7 @@
                                         </div>
                                         <div class="row text-center text-muted">
                                             <h5>
-                                                {{ data.medias|getFirst|intcomma }}
+                                                {{ data.medias|intcomma }}
                                             </h5>
                                         </div>
                                     </div>

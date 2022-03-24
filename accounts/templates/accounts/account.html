@@ -2,22 +2,65 @@
 {% load static %}
 {% load getFirst %}
 {% load humanize %}
+{% load getDate %}
+{% load makeTable %}
 
 {% block head %}
+    <link rel="stylesheet" href="{% static 'accounts/account.css' %}">
+    <link
+            rel="stylesheet"
+            href="https://unpkg.com/swiper/swiper-bundle.min.css"
+    />
+    <style>
+
+        .swiper {
+            width: 100%;
+            height: 100%;
+        }
+
+        .swiper-slide {
+            text-align: center;
+            font-size: 18px;
+            background: #fff;
+
+            /* Center slide text vertically */
+            display: -webkit-box;
+            display: -ms-flexbox;
+            display: -webkit-flex;
+            display: flex;
+            -webkit-box-pack: center;
+            -ms-flex-pack: center;
+            -webkit-justify-content: center;
+            justify-content: center;
+            -webkit-box-align: center;
+            -ms-flex-align: center;
+            -webkit-align-items: center;
+            align-items: center;
+        }
+
+        .swiper-slide img {
+            display: block;
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+    </style>
 {% endblock head %}
 
 {% block content %}
-    <div class="container-fluid" id="main">
+    <div class="container-fluid overflow-auto" id="main">
         <div class="container m-2 border">
             <div class="row">
                 <div class="col-4 mx-auto border">
                     <img src="http://143.198.116.198:4000/{{ account.profilePic }}" class="card-img-top" alt="{{ account.username }}"/>
                 </div>
-                <div class="col-8 mx-auto">
+                <div class="col-8 mx-auto card">
                     <div class="row text-center text-capitalize mb-2">
-                        <h2>
-                            {{ account }}
-                        </h2>
+                        <a href="https://www.instagram.com/{{ account }}">
+                            <h2 class="text-dark">
+                                {{ account }}
+                            </h2>
+                        </a>
                     </div>
                     <div class="row row-cols-auto border-bottom">
                         <div class="col mx-auto">
@@ -28,7 +71,7 @@
                             </div>
                             <div class="row">
                                 <h4 class="text-center text-primary">
-                                    {{ account.followers|getFirst|intcomma }}
+                                    {{ account.followers|intcomma }}
                                 </h4>
                             </div>
                         </div>
@@ -40,7 +83,7 @@
                             </div>
                             <div class="row">
                                 <h4 class="text-center text-primary">
-                                    {{ account.following|getFirst|intcomma }}
+                                    {{ account.following|intcomma }}
                                 </h4>
                             </div>
                         </div>
@@ -52,7 +95,7 @@
                             </div>
                             <div class="row">
                                 <h4 class="text-center text-primary">
-                                    {{ account.medias|getFirst|intcomma }}
+                                    {{ account.medias|intcomma }}
                                 </h4>
                             </div>
                         </div>
@@ -151,7 +194,157 @@
                     </div>
                 </div>
             </div>
-
+            <div class="row mt-5">
+                <div class="col">
+                    <div class="row row-cols-auto">
+                        <div class="col mx-auto">
+                            <h4 class="text-center text-muted">
+                                Account Growth
+                            </h4>
+                        </div>
+                    </div>
+                    <div class="row row-cols-auto">
+                        <div class="col mx-auto">
+                            <table class="table account-analyze overflow-auto">
+                                <thead>
+                                <tr>
+                                    <th scope="col">Date</th>
+                                    <th scope="col">Followers</th>
+                                    <th scope="col">Following</th>
+                                    <th scope="col">Media</th>
+                                </tr>
+                                </thead>
+                                <tbody>
+                                    {% for key, value in account.analyze|makeTable %}
+                                        <tr>
+                                            <th scope="row">{{ key|getDate|date:"M d, Y" }}</th>
+                                            <td>{{ value.followers|intcomma }}</td>
+                                            <td>{{ value.following|intcomma }}</td>
+                                            <td>{{ value.medias|intcomma }}</td>
+                                        </tr>
+                                    {% endfor %}
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row mt-5">
+                <div class="col">
+                    <div class="row row-cols-auto">
+                        <div class="col mx-auto">
+                            <h4 class="text-center text-muted">
+                                Account Media
+                            </h4>
+                        </div>
+                    </div>
+                    <div class="row row-cols-1">
+                        {% for media in medias %}
+                            <div class="col mx-auto">
+                                <div class="card border hover-shadow my-2">
+                                    <div class="row">
+                                        <div class="col-3 border-end d-flex justify-content-center">
+                                            {% if media.type == 'photo' %}
+                                                <div class="media-content-container m-1 d-flex align-items-center">
+                                                    <img class="media-content" src="http://143.198.116.198:4000/{{ media.source }}" alt="{{ media.account }}">
+                                                </div>
+                                            {% elif media.type == 'video' %}
+                                                <div class="media-content-container d-flex justify-content-center p-1">
+                                                    <video controls class="media-content" src="http://143.198.116.198:5000/{{ media.source }}"></video>
+                                                </div>
+                                            {% elif media.type == 'album' %}
+                                                <div class="swiper mySwiper ">
+                                                    <div class="swiper-wrapper">
+                                                        {% for key, value in media.resources.items %}
+                                                            <div class="swiper-slide">
+                                                                <img src="http://143.198.116.198:4000/{{ value.source }}" alt="">
+                                                            </div>
+                                                        {% endfor %}
+                                                    </div>
+                                                    <div class="swiper-button-next"></div>
+                                                    <div class="swiper-button-prev"></div>
+                                                    <div class="swiper-pagination"></div>
+                                                </div>
+                                            {% endif %}
+                                        </div>
+                                        <div class="col-9">
+                                            <div class="row text-center text-muted mt-1">
+                                                <h6>
+                                                    Media Statics
+                                                </h6>
+                                            </div>
+                                            <div class="row row-cols-auto border-bottom">
+                                                <div class="col mx-auto">
+                                                    <div class="row h5 text-center text-muted">
+                                                        Type
+                                                    </div>
+                                                    <div class="row h4 text-center text-primary">
+                                                        {{ media.type }}
+                                                    </div>
+                                                </div>
+                                                <div class="col mx-auto">
+                                                    <div class="row h5 text-center text-muted">
+                                                        Likes
+                                                    </div>
+                                                    <div class="row h4 text-center text-primary">
+                                                        {{ media.likes|intcomma }}
+                                                    </div>
+                                                </div>
+                                                <div class="col mx-auto">
+                                                    <div class="row h5 text-center text-muted">
+                                                        Comments
+                                                    </div>
+                                                    <div class="row h4 text-center text-primary">
+                                                        {{ media.comments|intcomma }}
+                                                    </div>
+                                                </div>
+                                                {% if media.type == 'video' %}
+                                                    <div class="col mx-auto">
+                                                        <div class="row h5 text-center text-muted">
+                                                            Views
+                                                        </div>
+                                                        <div class="row h4 text-center text-primary">
+                                                            {{ media.views|intcomma }}
+                                                        </div>
+                                                    </div>
+                                                {% endif %}
+                                            </div>
+                                            <div class="row row-cols-auto text-center text-muted mt-5">
+                                                <div class="col mx-auto mb-2">
+                                                    <a class="btn btn-outline-dark" data-mdb-ripple-color="dark">
+                                                        See More
+                                                    </a>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        {% endfor %}
+                    </div>
+                </div>
+            </div>
         </div>
     </div>
+    <script src="https://unpkg.com/swiper/swiper-bundle.min.js"></script>
+
+    <!-- Initialize Swiper -->
+    <script>
+        var swiper = new Swiper(".mySwiper", {
+            pagination: {
+                el: ".swiper-pagination",
+                type: "progressbar",
+            },
+            navigation: {
+                nextEl: ".swiper-button-next",
+                prevEl: ".swiper-button-prev",
+            },
+        });
+    </script>
+
+    <script>
+        $('#datepicker-dep').datepicker({
+            minDate: 0
+        });
+    </script>
 {% endblock content %}
