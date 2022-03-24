@@ -81,7 +81,7 @@
                             <div class="col mx-auto my-1">
                                 <div class="card account-card hover-shadow border">
                                     <a href="{% url 'account' %}?account={{ account.accountId }}" class="stretched-link"></a>
-                                    <img src="http://localhost:3000/proxy?url={{ account.profilePic }}" class="card-img-top" alt="{{ account.username }}"/>
+                                    <img src="http://143.198.116.198:4000/{{ account.profilePic }}" class="card-img-top" alt="{{ account.username }}"/>
                                     <div class="card-header">
                                         <h5 class="card-title text-center">
                                             {{ account }}

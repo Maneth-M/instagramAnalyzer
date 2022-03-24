@@ -122,18 +122,18 @@
                             <div class="col-3 border-end d-flex justify-content-center">
                                 {% if media.type == 'photo' %}
                                     <div class="media-content-container m-1 d-flex align-items-center">
-                                        <img class="media-content" src="http://localhost:3000/proxy?url={{ media.source }}" alt="{{ media.account }}">
+                                        <img class="media-content" src="http://143.198.116.198:4000/{{ media.source }}" alt="{{ media.account }}">
                                     </div>
                                 {% elif media.type == 'video' %}
-                                    <div class="media-content-container p-1">
-                                        <video class="media-content" src="http://localhost:3000/proxy?url={{ media.source }}"></video>
+                                    <div class="media-content-container d-flex justify-content-center p-1">
+                                        <video controls class="media-content" src="http://143.198.116.198:5000/{{ media.source }}"></video>
                                     </div>
                                 {% elif media.type == 'album' %}
                                     <div class="swiper mySwiper ">
                                         <div class="swiper-wrapper">
                                             {% for key, value in media.resources.items %}
                                                 <div class="swiper-slide">
-                                                    <img src="http://localhost:3000/proxy?url={{ value.source }}" alt="">
+                                                    <img src="http://143.198.116.198:4000/{{ value.source }}" alt="">
                                                 </div>
                                             {% endfor %}
                                         </div>

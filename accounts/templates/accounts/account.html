@@ -9,17 +9,17 @@
 {% block content %}
     <div class="container-fluid" id="main">
         <div class="container m-2 border">
-            <div class="row text-center text-capitalize mb-2">
-                <h2>
-                    {{ account }}
-                </h2>
-            </div>
             <div class="row">
                 <div class="col-4 mx-auto border">
-                    <img src="http://localhost:3000/proxy?url={{ account.profilePic }}" class="card-img-top" alt="{{ account.username }}"/>
+                    <img src="http://143.198.116.198:4000/{{ account.profilePic }}" class="card-img-top" alt="{{ account.username }}"/>
                 </div>
                 <div class="col-8 mx-auto">
-                    <div class="row row-cols-auto">
+                    <div class="row text-center text-capitalize mb-2">
+                        <h2>
+                            {{ account }}
+                        </h2>
+                    </div>
+                    <div class="row row-cols-auto border-bottom">
                         <div class="col mx-auto">
                             <div class="row">
                                 <h4 class="text-center text-muted">
@@ -57,18 +57,20 @@
                             </div>
                         </div>
                     </div>
-                    <div class="row row-cols-auto">
-                        <div class="col mx-auto">
+                    <div class="row row-cols-auto mt-5">
+                        <div class="col-6 mx-auto">
                             <div class="row">
                                 <h4 class="text-center text-muted">
                                     Bio
                                 </h4>
                             </div>
                             <div class="row">
-                                <h4 class="text-center text-primary">
+                                <h6 class="text-center text-primary">
                                     {{ account.bio }}
-                                </h4>
+                                </h6>
                             </div>
+                        </div>
+                        <div class="col-6 mx-auto">
                             <div class="row">
                                 <h4 class="text-center text-muted">
                                     Hashtags
@@ -76,13 +78,80 @@
                             </div>
                             <div class="row">
                                 <h4 class="text-center text-primary">
-                                    {{ account.hashtags }}
+                                    {% if account.hashtags != " " %}
+                                        <h6 class="=text-center text-primary">
+                                            {{ account.hashtags }}
+                                        </h6>
+                                    {% else %}
+                                        <h6 class="text-center text-warning">
+                                            No Hashtags
+                                        </h6>
+                                    {% endif %}
                                 </h4>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row row-cols-auto mt-5">
+                        <div class="col-3">
+                            <div class="card text-center">
+                                <div class="card-title">
+                                    <h4>
+                                        Rank
+                                    </h4>
+                                </div>
+                                <div class="card-content text-info">
+                                    <h5>
+                                        #
+                                    </h5>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-3">
+                            <div class="card text-center">
+                                <div class="card-title">
+                                    <h4>
+                                        Likes Rank
+                                    </h4>
+                                </div>
+                                <div class="card-content text-info">
+                                    <h5>
+                                        #
+                                    </h5>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-3">
+                            <div class="card text-center">
+                                <div class="card-title">
+                                    <h4>
+                                        Comments Rank
+                                    </h4>
+                                </div>
+                                <div class="card-content text-info">
+                                    <h5>
+                                        #
+                                    </h5>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-3">
+                            <div class="card text-center">
+                                <div class="card-title">
+                                    <h4>
+                                        Views Rank
+                                    </h4>
+                                </div>
+                                <div class="card-content text-info">
+                                    <h5>
+                                       #
+                                    </h5>
+                                </div>
                             </div>
                         </div>
                     </div>
                 </div>
             </div>
+
         </div>
     </div>
 {% endblock content %}

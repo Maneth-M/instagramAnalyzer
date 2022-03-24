@@ -4,7 +4,7 @@
     <inspection_tool class="PyPackageRequirementsInspection" enabled="true" level="WARNING" enabled_by_default="true">
       <option name="ignoredPackages">
         <value>
-          <list size="34">
+          <list size="42">
             <item index="0" class="java.lang.String" itemvalue="distro" />
             <item index="1" class="java.lang.String" itemvalue="PyYAML" />
             <item index="2" class="java.lang.String" itemvalue="qrcode" />
@@ -39,6 +39,14 @@
             <item index="31" class="java.lang.String" itemvalue="distlib" />
             <item index="32" class="java.lang.String" itemvalue="pycryptodome" />
             <item index="33" class="java.lang.String" itemvalue="Pillow" />
+            <item index="34" class="java.lang.String" itemvalue="Werkzeug" />
+            <item index="35" class="java.lang.String" itemvalue="pyOpenSSL" />
+            <item index="36" class="java.lang.String" itemvalue="Django" />
+            <item index="37" class="java.lang.String" itemvalue="cryptography" />
+            <item index="38" class="java.lang.String" itemvalue="itsdangerous" />
+            <item index="39" class="java.lang.String" itemvalue="ldap3" />
+            <item index="40" class="java.lang.String" itemvalue="Jinja2" />
+            <item index="41" class="java.lang.String" itemvalue="Flask" />
           </list>
         </value>
       </option>
